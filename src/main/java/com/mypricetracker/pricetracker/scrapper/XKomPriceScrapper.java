@@ -7,6 +7,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 @Slf4j
 public class XKomPriceScrapper implements Scrapper{
@@ -16,7 +17,7 @@ public class XKomPriceScrapper implements Scrapper{
             Document document = Jsoup.connect(url).get();
 
             String title = scrapStringField(document, "h1.sc-1bker4h-4.driGYx");
-            Double price = scrapPriceField(document, "div.u7xnnm-4.jFbqvs");
+            BigDecimal price = scrapPriceField(document, "div.u7xnnm-4.jFbqvs");
 
             log.info("Successfully received data of product. Title: " + title + " price: " + price);
 
@@ -36,12 +37,12 @@ public class XKomPriceScrapper implements Scrapper{
         }
     }
 
-    private Double scrapPriceField(Document document, String field) {
+    private BigDecimal scrapPriceField(Document document, String field) {
         Element tempElement = document.select(field).first();
         if (tempElement != null) {
             String price = tempElement.select(field).text();
             price = convertOriginalPrice(price);
-            return Double.valueOf(price);
+            return new BigDecimal(price);
         } else {
             throw new ScrappingFieldException("Could not scrap field: " + field);
         }
