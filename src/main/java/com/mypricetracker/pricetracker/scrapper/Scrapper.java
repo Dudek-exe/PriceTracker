@@ -1,7 +1,9 @@
 package com.mypricetracker.pricetracker.scrapper;
 
+import com.mypricetracker.pricetracker.domain.product.Product;
+
 public interface Scrapper {
 
-    void scrapFromUrl(String url);
+    Product scrapFromUrl(String url);
 
 }

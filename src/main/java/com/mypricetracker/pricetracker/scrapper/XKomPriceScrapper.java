@@ -1,5 +1,6 @@
 package com.mypricetracker.pricetracker.scrapper;
 
+import com.mypricetracker.pricetracker.domain.product.Product;
 import com.mypricetracker.pricetracker.exception.ScrappingFieldException;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
@@ -8,23 +9,34 @@ import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Slf4j
-public class XKomPriceScrapper implements Scrapper{
+public class XKomPriceScrapper implements Scrapper {
 
-    public void scrapFromUrl(String url) {
+    private DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+    public Product scrapFromUrl(String url) {
         try {
             Document document = Jsoup.connect(url).get();
+            Product product = new Product();
 
-            String title = scrapStringField(document, "h1.sc-1bker4h-4.driGYx");
+            String name = scrapStringField(document, "h1.sc-1bker4h-4.driGYx");
             BigDecimal price = scrapPriceField(document, "div.u7xnnm-4.jFbqvs");
+            String priceTime = OffsetDateTime.now().format(fmt);
 
-            log.info("Successfully received data of product. Title: " + title + " price: " + price);
+            product.setProductName(name);
+            product.setProductPrice(price);
+            product.setPriceDate(priceTime);
+
+            log.info("Successfully received data of product: Title: " + name + " price: " + price + " at: " + priceTime);
+            return product;
 
         } catch (IOException e) {
             log.info("Unable to connect to requested URL: " + url);
+            return null;
         }
-
 
     }
 
