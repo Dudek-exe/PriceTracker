@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -13,17 +14,28 @@ import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Slf4j
-public class XKomPriceScrapper implements Scrapper {
+@Component
+public class XKomPriceScrapper implements Scrapper{
 
-    private DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
+    private final ScrapperTypeEnum scrapperTypeEnum = ScrapperTypeEnum.XKOM;
 
+    public ScrapperTypeEnum getScrapperTypeEnum() {
+        return scrapperTypeEnum;
+    }
+
+    private final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+    @Override
     public Product scrapFromUrl(String url) {
         try {
             Document document = Jsoup.connect(url).get();
             Product product = new Product();
 
-            String name = scrapStringField(document, "h1.sc-1bker4h-4.driGYx");
-            BigDecimal price = scrapPriceField(document, "div.u7xnnm-4.jFbqvs");
+            //Was "h1.sc-1bker4h-4.driGYx" but changed to "h1.sc-1bker4h-4"
+            String name = scrapStringField(document, "h1.sc-1bker4h-4");
+
+            //Was "div.u7xnnm-4.jFbqvs but changed to "div.u7xnnm-4"
+            BigDecimal price = scrapPriceField(document, "div.u7xnnm-4");
             String priceTime = OffsetDateTime.now().format(fmt);
 
             product.setProductName(name);

@@ -14,7 +14,7 @@ public enum ScrapperTypeEnum {
         this.scrapperType = scrapperType;
     }
 
-    public ScrapperTypeEnum from(String inputType) {
+    public static ScrapperTypeEnum from(String inputType) {
         for (ScrapperTypeEnum enumType : ScrapperTypeEnum.values()) {
             if (enumType.scrapperType.equals(inputType)) {
                 return enumType;
