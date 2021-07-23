@@ -1,20 +1,18 @@
 package com.mypricetracker.pricetracker.scrapper;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.Map;
 
 @Getter
 @Component
 public class ScrapperContainer {
 
-    Map<ScrapperTypeEnum, Scrapper> scrapperMap = new HashMap<>();
+    Map<ScrapperTypeEnum, Scrapper> scrapperMap = new EnumMap<>(ScrapperTypeEnum.class);
 
-    XKomPriceScrapper xKomPriceScrapper = new XKomPriceScrapper();
+    XKomPriceScrapper xKomPriceScrapper;
 
 
     public ScrapperContainer(XKomPriceScrapper xKomPriceScrapper) {

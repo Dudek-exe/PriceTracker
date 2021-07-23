@@ -22,9 +22,9 @@ public class Product {
     @Column(name = "Price",nullable = false)
     private BigDecimal productPrice;
 
-    //TODO consider changin to OffsetDateTime
+    //TODO consider changing to OffsetDateTime
     @Column(name = "Price_time", nullable = false)
-    private String priceDate;
+    private OffsetDateTime priceDate;
 
     //price set by user when is interested in buying
     @Column(name = "Border_price")

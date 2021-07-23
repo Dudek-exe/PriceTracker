@@ -7,10 +7,22 @@ spring:
     password: postgres
     url: jdbc:postgresql://localhost:5432/scrapper_db
 
+  flyway:
+    enabled: true
+    schemas: scrapper_flyway_schema
+    default-schema: scrapper_flyway_schema
+    table: scrapper_flyway_history
+    locations: classpath:db/postgresql
+    baseline-on-migrate: true
+
   jpa:
+    properties:
+      hibernate:
+        default_schema: scrapper_flyway_schema
+        jdbc:
+          time_zone=UTC:
     hibernate:
       ddl-auto: create
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-
 
 

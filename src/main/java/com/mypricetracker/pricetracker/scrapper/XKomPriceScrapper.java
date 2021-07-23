@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -36,7 +37,7 @@ public class XKomPriceScrapper implements Scrapper{
 
             //Was "div.u7xnnm-4.jFbqvs but changed to "div.u7xnnm-4"
             BigDecimal price = scrapPriceField(document, "div.u7xnnm-4");
-            String priceTime = OffsetDateTime.now().format(fmt);
+            OffsetDateTime priceTime = OffsetDateTime.now();
 
             product.setProductName(name);
             product.setProductPrice(price);
