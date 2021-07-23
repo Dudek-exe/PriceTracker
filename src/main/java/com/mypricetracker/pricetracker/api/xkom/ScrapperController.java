@@ -1,15 +1,17 @@
 package com.mypricetracker.pricetracker.api.xkom;
 
-import com.mypricetracker.pricetracker.api.NewProductRequest;
+import com.mypricetracker.pricetracker.api.request.NewProductRequest;
+import com.mypricetracker.pricetracker.api.response.ProductResponse;
+import com.mypricetracker.pricetracker.api.response.SingleProductData;
 import com.mypricetracker.pricetracker.domain.product.ScrappingService;
 import com.mypricetracker.pricetracker.exception.NoSuchScrapperEnumTypeException;
+import com.mypricetracker.pricetracker.exception.UnreachableException;
 import com.mypricetracker.pricetracker.scrapper.Scrapper;
 import com.mypricetracker.pricetracker.scrapper.ScrapperContainer;
 import com.mypricetracker.pricetracker.scrapper.ScrapperTypeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.math.BigDecimal;
 
 @Slf4j
@@ -26,15 +28,20 @@ public class ScrapperController {
         this.scrapperContainer = scrapperContainer;
     }
 
+    @GetMapping
+    public ProductResponse getAllPricesOfProduct(@RequestParam String productName) {
+        return new ProductResponse(scrappingService.getAllPricesForProduct(productName));
+    }
+
     @PostMapping
     public void scrapDataFromUrl(@RequestBody NewProductRequest newProductRequest, BigDecimal borderPrice) {
         log.info("Received request for scrappign data from url: " + newProductRequest.getUrl());
         ScrapperTypeEnum scrapperTypeEnum = extractEnumTypeFromUrl(newProductRequest.getUrl());
         Scrapper executableScrapper = chooseScrapper(scrapperTypeEnum);
 
-        if(borderPrice ==null) {
+        if (borderPrice == null) {
             scrappingService.scrapDataFromUrlWithoutBorderPrice(executableScrapper, newProductRequest.getUrl());
-        }else{
+        } else {
 
         }
     }
@@ -42,7 +49,7 @@ public class ScrapperController {
     private ScrapperTypeEnum extractEnumTypeFromUrl(String url) {
         url = url.replace("https://www.", "");
         String shopType = url.substring(0, 5);
-        if (shopType.equals("x-kom")) {
+        if (shopType.contains("x-kom")) {
             return ScrapperTypeEnum.XKOM;
         } else {
             throw new NoSuchScrapperEnumTypeException("Could not find shop of type: " + shopType);
@@ -50,14 +57,15 @@ public class ScrapperController {
     }
 
     //TODO add more cases
+    //TODO consider return null or leave UnreachableException
     private Scrapper chooseScrapper(ScrapperTypeEnum scrapperTypeEnum) {
         switch (scrapperTypeEnum) {
             case XKOM:
                 return scrapperContainer.getScrapperMap().get(scrapperTypeEnum);
         }
-        //will never return null
-        return null;
+        throw new UnreachableException("Something went wrong");
     }
+
 }
 
 

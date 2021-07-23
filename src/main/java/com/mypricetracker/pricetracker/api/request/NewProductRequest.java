@@ -1,4 +1,4 @@
-package com.mypricetracker.pricetracker.api;
+package com.mypricetracker.pricetracker.api.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

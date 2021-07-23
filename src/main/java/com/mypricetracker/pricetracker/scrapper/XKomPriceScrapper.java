@@ -1,6 +1,6 @@
 package com.mypricetracker.pricetracker.scrapper;
 
-import com.mypricetracker.pricetracker.domain.product.Product;
+import com.mypricetracker.pricetracker.domain.product.ProductEntity;
 import com.mypricetracker.pricetracker.exception.ScrappingFieldException;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -27,10 +26,10 @@ public class XKomPriceScrapper implements Scrapper{
     private final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
     @Override
-    public Product scrapFromUrl(String url) {
+    public ProductEntity scrapFromUrl(String url) {
         try {
             Document document = Jsoup.connect(url).get();
-            Product product = new Product();
+            ProductEntity product = new ProductEntity();
 
             //Was "h1.sc-1bker4h-4.driGYx" but changed to "h1.sc-1bker4h-4"
             String name = scrapStringField(document, "h1.sc-1bker4h-4");
