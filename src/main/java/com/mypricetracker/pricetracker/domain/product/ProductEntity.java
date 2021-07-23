@@ -10,7 +10,7 @@ import java.time.OffsetDateTime;
 @Entity
 @Data
 @NoArgsConstructor
-public class Product {
+public class ProductEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class Product {
     private BigDecimal productPrice;
 
     //TODO consider changing to OffsetDateTime
-    @Column(name = "Price_time", nullable = false)
+    @Column(name = "Price_time", nullable = false,columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private OffsetDateTime priceDate;
 
     //price set by user when is interested in buying

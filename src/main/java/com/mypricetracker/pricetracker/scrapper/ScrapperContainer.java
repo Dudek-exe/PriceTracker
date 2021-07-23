@@ -18,7 +18,7 @@ public class ScrapperContainer {
     public ScrapperContainer(XKomPriceScrapper xKomPriceScrapper) {
         this.xKomPriceScrapper = xKomPriceScrapper;
 
-        scrapperMap.put(ScrapperTypeEnum.XKOM, xKomPriceScrapper);
+        scrapperMap.put(xKomPriceScrapper.getScrapperTypeEnum(), xKomPriceScrapper);
     }
 
 }
