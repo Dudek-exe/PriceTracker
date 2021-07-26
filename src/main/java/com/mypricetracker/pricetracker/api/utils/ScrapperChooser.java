@@ -1,6 +1,5 @@
 package com.mypricetracker.pricetracker.api.utils;
 
-import com.mypricetracker.pricetracker.exception.NoSuchScrapperEnumTypeException;
 import com.mypricetracker.pricetracker.exception.UnreachableException;
 import com.mypricetracker.pricetracker.scrapper.Scrapper;
 import com.mypricetracker.pricetracker.scrapper.ScrapperContainer;
@@ -16,18 +15,13 @@ public class ScrapperChooser {
         this.scrapperContainer = scrapperContainer;
     }
 
-    public ScrapperTypeEnum extractEnumTypeFromUrl(String url, String urlConstant) {
+    public ScrapperTypeEnum extractEnumTypeFromUrl(String url) {
         url = url.replace("https://www.", "");
         String shopType = url.substring(0, 5);
-        if (shopType.contains(urlConstant)) {
-            return ScrapperTypeEnum.XKOM;
-        } else {
-            throw new NoSuchScrapperEnumTypeException("Could not find shop of type: " + shopType);
-        }
+        return ScrapperTypeEnum.from(shopType);
     }
 
     //TODO add more cases
-    //TODO consider return null or leave UnreachableException
     public Scrapper chooseScrapper(ScrapperTypeEnum scrapperTypeEnum) {
         switch (scrapperTypeEnum) {
             case XKOM:

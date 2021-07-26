@@ -10,10 +10,10 @@ import java.time.OffsetDateTime;
 @Getter
 public class SingleProductData {
 
-    private String productName;
-    private BigDecimal productPrice;
-    private OffsetDateTime priceDate;
-    private BigDecimal borderPrice;
+    private final String productName;
+    private final BigDecimal productPrice;
+    private final OffsetDateTime priceDate;
+    private final BigDecimal borderPrice;
 
 }
 

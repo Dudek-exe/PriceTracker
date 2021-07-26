@@ -57,6 +57,39 @@ public class ScrappingServiceImplTests {
     }
 
     @Test
+    public void POSTwithoutAllParamsShouldReturn200() throws JSONException {
+
+        JSONObject jsonObj = new JSONObject()
+                .put("url", TEST_PRODUCT_URL)
+                .put("borderPrice", null);
+
+        given()
+                .contentType("application/json")
+                .body(jsonObj.toString())
+                .when()
+                .post("/scrap")
+                .then()
+                .assertThat()
+                .statusCode(200);
+    }
+
+    @Test
+    public void POSTwithEmpyFieldsShouldReturn400() throws JSONException {
+
+        JSONObject jsonObj = new JSONObject()
+                .put("borderPrice", null);
+
+        given()
+                .contentType("application/json")
+                .body(jsonObj.toString())
+                .when()
+                .post("/scrap")
+                .then()
+                .assertThat()
+                .statusCode(400);
+    }
+
+    @Test
     public void GETwithAllParamsShouldReturn200() {
 
         given()

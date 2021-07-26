@@ -1,4 +1,4 @@
-package com.mypricetracker.pricetracker.api.xkom;
+package com.mypricetracker.pricetracker.api.controller.xkom;
 
 import com.mypricetracker.pricetracker.api.request.NewProductRequest;
 import com.mypricetracker.pricetracker.api.response.ProductResponse;
@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "scrap")
 public class XKomScrapperController {
-
-    private static final String ULR_CONSTANT = "x-kom";
 
     private final ScrapperChooser scrapperChooser;
     private final ScrappingService scrappingService;
@@ -34,7 +32,7 @@ public class XKomScrapperController {
     @PostMapping
     public void scrapDataFromUrl(@RequestBody NewProductRequest newProductRequest) {
         log.info("Received request for scrappign data from url: " + newProductRequest.getUrl());
-        ScrapperTypeEnum scrapperTypeEnum = scrapperChooser.extractEnumTypeFromUrl(newProductRequest.getUrl(), ULR_CONSTANT);
+        ScrapperTypeEnum scrapperTypeEnum = scrapperChooser.extractEnumTypeFromUrl(newProductRequest.getUrl());
         Scrapper executableScrapper = scrapperChooser.chooseScrapper(scrapperTypeEnum);
 
         if (newProductRequest.getBorderPrice() == null) {

@@ -1,6 +1,5 @@
 package com.mypricetracker.pricetracker.domain.product;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
