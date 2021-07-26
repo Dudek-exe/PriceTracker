@@ -23,8 +23,6 @@ public class XKomPriceScrapper implements Scrapper{
         return scrapperTypeEnum;
     }
 
-    private final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
-
     @Override
     public ProductEntity scrapFromUrl(String url) {
         try {

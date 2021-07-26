@@ -28,14 +28,17 @@ public class ScrappingServiceImpl implements ScrappingService {
 
     @Override
     public void scrapDataFromUrlWithoutBorderPrice(Scrapper scrapper, String url) {
-        productRepository.save(scrapper.scrapFromUrl(url));
+        ProductEntity productEntity = scrapper.scrapFromUrl(url);
+        productRepository.save(productEntity);
+        log.info("Saving: " + productEntity);
     }
 
     @Override
     public void scrapDataFromUrlWithBorderPrice(Scrapper scrapper, String url, BigDecimal borderPrice) {
-        ProductEntity product = scrapper.scrapFromUrl(url);
-        product.setBorderPrice(borderPrice);
-        productRepository.save(product);
+        ProductEntity productEntity = scrapper.scrapFromUrl(url);
+        productEntity.setBorderPrice(borderPrice);
+        productRepository.save(productEntity);
+        log.info("Saving: " + productEntity);
     }
 
     @Override

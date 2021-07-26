@@ -1,5 +1,6 @@
 package com.mypricetracker.pricetracker.domain.product;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -22,7 +23,6 @@ public class ProductEntity {
     @Column(name = "Price",nullable = false)
     private BigDecimal productPrice;
 
-    //TODO consider changing to OffsetDateTime
     @Column(name = "Price_time", nullable = false,columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private OffsetDateTime priceDate;
 
