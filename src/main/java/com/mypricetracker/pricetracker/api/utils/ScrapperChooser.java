@@ -6,6 +6,8 @@ import com.mypricetracker.pricetracker.scrapper.ScrapperContainer;
 import com.mypricetracker.pricetracker.scrapper.ScrapperTypeEnum;
 import org.springframework.stereotype.Component;
 
+import java.util.Locale;
+
 @Component
 public class ScrapperChooser {
 
@@ -15,10 +17,10 @@ public class ScrapperChooser {
         this.scrapperContainer = scrapperContainer;
     }
 
-    public ScrapperTypeEnum extractEnumTypeFromUrl(String url) {
-        url = url.replace("https://www.", "");
-        String shopType = url.substring(0, 5);
-        return ScrapperTypeEnum.from(shopType);
+    public Scrapper extractScrapperFromUrl(String url) {
+        url = url.replace("https://www.", "").replace("-", "");
+        String scrapperTypeFromUrl = url.substring(0, 10).toUpperCase(Locale.ROOT);
+        return scrapperContainer.getScrapperMap().get(ScrapperTypeEnum.from(scrapperTypeFromUrl));
     }
 
     //TODO add more cases

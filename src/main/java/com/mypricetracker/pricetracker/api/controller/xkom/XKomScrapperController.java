@@ -32,8 +32,7 @@ public class XKomScrapperController {
     @PostMapping
     public void scrapDataFromUrl(@RequestBody NewProductRequest newProductRequest) {
         log.info("Received request for scrappign data from url: " + newProductRequest.getUrl());
-        ScrapperTypeEnum scrapperTypeEnum = scrapperChooser.extractEnumTypeFromUrl(newProductRequest.getUrl());
-        Scrapper executableScrapper = scrapperChooser.chooseScrapper(scrapperTypeEnum);
+        Scrapper executableScrapper = scrapperChooser.extractScrapperFromUrl(newProductRequest.getUrl());
 
         if (newProductRequest.getBorderPrice() == null) {
             scrappingService.scrapDataFromUrlWithoutBorderPrice(executableScrapper, newProductRequest.getUrl());

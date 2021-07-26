@@ -16,7 +16,7 @@ public enum ScrapperTypeEnum {
 
     public static ScrapperTypeEnum from(String inputType) {
         for (ScrapperTypeEnum enumType : ScrapperTypeEnum.values()) {
-            if (enumType.scrapperType.equals(inputType)) {
+            if (enumType.scrapperType.equalsIgnoreCase(inputType)) {
                 return enumType;
             }
         }
