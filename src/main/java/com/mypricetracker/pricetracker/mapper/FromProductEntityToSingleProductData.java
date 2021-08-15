@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true))
-public abstract class FromProductEntityToProductResponse {
+public abstract class FromProductEntityToSingleProductData {
     //For further implementation of utils methods
     interface Helper {
     }

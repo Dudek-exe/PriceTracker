@@ -22,15 +22,12 @@ spring:
     baseline-on-migrate: true
 
   jpa:
-    show-sql: true
     properties:
       hibernate:
-        format_sql: true
         default_schema: scrapper_flyway_schema
         jdbc:
           time_zone: UTC
     hibernate:
       ddl-auto: none
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-
 

@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface ScrappingService {
 
-    void scrapDataFromUrlWithoutBorderPrice(Scrapper scrapper, String url);
+    ProductEntity scrapDataFromUrlWithoutBorderPrice(Scrapper scrapper, String url);
 
-    void scrapDataFromUrlWithBorderPrice(Scrapper scrapper, String url, BigDecimal borderPrice);
+    ProductEntity scrapDataFromUrlWithBorderPrice(Scrapper scrapper, String url, BigDecimal borderPrice);
 
     List<SingleProductData> getAllPricesForProduct(String name);
 }

@@ -3,7 +3,7 @@ package com.mypricetracker.pricetracker.domain.product.impl;
 import com.mypricetracker.pricetracker.api.response.SingleProductData;
 import com.mypricetracker.pricetracker.domain.product.ProductEntity;
 import com.mypricetracker.pricetracker.domain.product.ScrappingService;
-import com.mypricetracker.pricetracker.mapper.FromProductEntityToProductResponse;
+import com.mypricetracker.pricetracker.mapper.FromProductEntityToSingleProductData;
 import com.mypricetracker.pricetracker.scrapper.Scrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,33 +18,33 @@ import java.util.stream.Collectors;
 public class ScrappingServiceImpl implements ScrappingService {
 
     private final ProductRepository productRepository;
-    private final FromProductEntityToProductResponse fromProductEntityToProductResponse;
+    private final FromProductEntityToSingleProductData fromProductEntityToSingleProductData;
 
     @Autowired
-    public ScrappingServiceImpl(ProductRepository productRepository, FromProductEntityToProductResponse fromProductEntityToProductResponseImpl) {
+    public ScrappingServiceImpl(ProductRepository productRepository, FromProductEntityToSingleProductData fromProductEntityToSingleProductDataImpl) {
         this.productRepository = productRepository;
-        this.fromProductEntityToProductResponse = fromProductEntityToProductResponseImpl;
+        this.fromProductEntityToSingleProductData = fromProductEntityToSingleProductDataImpl;
     }
 
     @Override
-    public void scrapDataFromUrlWithoutBorderPrice(Scrapper scrapper, String url) {
+    public ProductEntity scrapDataFromUrlWithoutBorderPrice(Scrapper scrapper, String url) {
         ProductEntity productEntity = scrapper.scrapFromUrl(url);
-        productRepository.save(productEntity);
         log.info("Saving: " + productEntity);
+        return productRepository.save(productEntity);
     }
 
     @Override
-    public void scrapDataFromUrlWithBorderPrice(Scrapper scrapper, String url, BigDecimal borderPrice) {
+    public ProductEntity scrapDataFromUrlWithBorderPrice(Scrapper scrapper, String url, BigDecimal borderPrice) {
         ProductEntity productEntity = scrapper.scrapFromUrl(url);
         productEntity.setBorderPrice(borderPrice);
-        productRepository.save(productEntity);
         log.info("Saving: " + productEntity);
+        return productRepository.save(productEntity);
     }
 
     @Override
     public List<SingleProductData> getAllPricesForProduct(String name) {
         List<ProductEntity> productEntityList = productRepository.getAllByProductNameOrderByPriceDate(name);
-        return productEntityList.stream().map(fromProductEntityToProductResponse::toSingleProductDataFromProductEntity).collect(Collectors.toList());
+        return productEntityList.stream().map(fromProductEntityToSingleProductData::toSingleProductDataFromProductEntity).collect(Collectors.toList());
     }
 
 }
