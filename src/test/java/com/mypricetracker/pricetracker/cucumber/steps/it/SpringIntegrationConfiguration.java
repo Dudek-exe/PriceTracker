@@ -1,4 +1,4 @@
-package com.mypricetracker.pricetracker.cucumber.config;
+package com.mypricetracker.pricetracker.cucumber.steps.it;
 
 import io.cucumber.spring.CucumberContextConfiguration;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +10,7 @@ import org.springframework.test.context.ActiveProfiles;
 @CucumberContextConfiguration
 @ActiveProfiles(profiles = "test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class SpringIntegrationConfig {
+public class SpringIntegrationConfiguration {
 
     @Before
     public void setUp() {

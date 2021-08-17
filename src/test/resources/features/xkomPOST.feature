@@ -1,12 +1,11 @@
 Feature: Requesting scrapping from x-kom (POST)
-
   Scenario Template: User calls for product's price subscription
 
     When User prepares and executes request as below:
       | url   | borderPrice   |
       | <url> | <borderPrice> |
 
-    Then HTTP Status is successful
+    Then HTTP Status is created
     And Product name is <productName>
 
     Examples:

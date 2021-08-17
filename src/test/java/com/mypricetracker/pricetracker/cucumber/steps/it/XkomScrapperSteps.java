@@ -1,14 +1,16 @@
 package com.mypricetracker.pricetracker.cucumber.steps.it;
 
+import com.mypricetracker.pricetracker.api.response.SingleProductData;
 import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import io.restassured.response.Response;
-import org.hamcrest.Matchers;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.jupiter.api.Assertions;
 
 import java.util.List;
 import java.util.Map;
@@ -43,15 +45,18 @@ public class XkomScrapperSteps extends AbstractSteps {
                 .log()
                 .all()
                 .when()
-                .post(executionUrl)
-                .then().body("productName", Matchers.is("Apple iPhone 12 128GB Purple 5G"));
+                .post(executionUrl);
 
         testContextHolder().setResponse(response);
 
     }
 
+    @And("Product name is {string}")
+    public void productNameIsProductName(String productName) {
+        final Response response = testContextHolder().getResponse();
 
-
+        Assertions.assertEquals(productName, response.getBody().as(SingleProductData.class).getProductName());
+    }
 }
 
   /*  given()
