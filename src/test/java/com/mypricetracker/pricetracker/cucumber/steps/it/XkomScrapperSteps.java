@@ -1,13 +1,13 @@
 package com.mypricetracker.pricetracker.cucumber.steps.it;
 
 import com.mypricetracker.pricetracker.api.response.SingleProductData;
+import com.mypricetracker.pricetracker.domain.product.impl.ProductRepository;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.restassured.parsing.Parser;
 import io.restassured.response.Response;
+import lombok.RequiredArgsConstructor;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
@@ -16,8 +16,13 @@ import java.util.List;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
 
+@RequiredArgsConstructor
 public class XkomScrapperSteps extends AbstractSteps {
+
+    private final ProductRepository productRepository;
 
     private static final String SCRAP_ENDPOINT = "/scrap";
 
@@ -25,10 +30,9 @@ public class XkomScrapperSteps extends AbstractSteps {
         return (value.trim().equals("null")) ? null : value.trim();
     }
 
-    @When("User prepares and executes request as below:")
-    public void userPreparesAndExecutesRequestAsBelow(DataTable dataTable) throws JSONException {
+    @When("User prepares and executes POST request as below:")
+    public void userPreparesAndExecutesPOSTRequestAsBelow(DataTable dataTable) throws JSONException {
         final String executionUrl = baseUrl() + SCRAP_ENDPOINT;
-        RestAssured.defaultParser = Parser.JSON;
         List<Map<String, String>> rows = dataTable.asMaps(String.class, String.class);
 
         JSONObject requestBody = new JSONObject();
@@ -39,7 +43,7 @@ public class XkomScrapperSteps extends AbstractSteps {
 
         testContextHolder().setPayload(requestBody.toString());
 
-        final Response response = (Response) given()
+        final Response response = given()
                 .body(testContextHolder().getPayload())
                 .contentType(ContentType.JSON)
                 .log()
@@ -51,27 +55,54 @@ public class XkomScrapperSteps extends AbstractSteps {
 
     }
 
+    @When("User prepares and executes GET request for {string}")
+    public void userPreparesAndExecutesGETRequestAsBelow(String productName) throws JSONException {
+        final String executionUrl = baseUrl() + SCRAP_ENDPOINT;
+
+        final Response response = given()
+                .contentType(ContentType.JSON)
+                .param("productName", productName)
+                .log()
+                .all()
+                .when()
+                .get(executionUrl);
+
+        testContextHolder().setResponse(response);
+
+  /*  given()
+  .contentType("application/json")
+  .param("productName", TEST_PRODUCT_NAME)
+  .when()
+  .get("/scrap")
+  .then()
+  .assertThat()
+  .body("responseProductList", notNullValue())
+  .body("responseProductList[0].productName", equalTo("Apple iPhone 12 128GB Purple 5G"))
+  .body("responseProductList[0].priceDate", equalTo("2021-07-24T12:44:45.484797+02:00"))
+  .body("responseProductList[0].borderPrice", equalTo(null))
+  .and()
+  .body("responseProductList[1].productName", equalTo("Apple iPhone 12 128GB Purple 5G"))
+  .body("responseProductList[1].priceDate", equalTo("2021-07-24T12:45:05.36375+02:00"))
+  .body("responseProductList[1].borderPrice", equalTo(null));
+  }*/
+    }
+
     @And("Product name is {string}")
     public void productNameIsProductName(String productName) {
         final Response response = testContextHolder().getResponse();
 
         Assertions.assertEquals(productName, response.getBody().as(SingleProductData.class).getProductName());
     }
-}
 
-  /*  given()
-                .contentType("application/json")
-                        .param("productName", TEST_PRODUCT_NAME)
-                        .when()
-                        .get("/scrap")
-                        .then()
-                        .assertThat()
-                        .body("responseProductList", notNullValue())
-                        .body("responseProductList[0].productName", equalTo("Apple iPhone 12 128GB Purple 5G"))
-                        .body("responseProductList[0].priceDate", equalTo("2021-07-24T12:44:45.484797+02:00"))
-                        .body("responseProductList[0].borderPrice", equalTo(null))
-                        .and()
-                        .body("responseProductList[1].productName", equalTo("Apple iPhone 12 128GB Purple 5G"))
-                        .body("responseProductList[1].priceDate", equalTo("2021-07-24T12:45:05.36375+02:00"))
-                        .body("responseProductList[1].borderPrice", equalTo(null));
-                        }*/
+    @And("Every record or the response has the same {string}")
+    public void everyRecordOrTheResponseHasTheSameProductName(String productName) {
+        final Response response = testContextHolder().getResponse();
+        response.then().assertThat().body("responseProductList", notNullValue())
+                .body("responseProductList[0].productName", equalTo(productName))
+                .and()
+                .body("responseProductList[1].productName", equalTo(productName));
+    }
+}
+/*                .body("responseProductList[0].priceDate", equalTo("2021-07-24T12:44:45.484797+02:00"))
+                .body("responseProductList[0].borderPrice", equalTo(null))*/
+

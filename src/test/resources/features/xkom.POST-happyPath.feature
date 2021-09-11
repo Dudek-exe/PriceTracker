@@ -1,7 +1,7 @@
 Feature: Requesting scrapping from x-kom (POST)
   Scenario Template: User calls for product's price subscription
 
-    When User prepares and executes request as below:
+    When User prepares and executes POST request as below:
       | url   | borderPrice   |
       | <url> | <borderPrice> |
 

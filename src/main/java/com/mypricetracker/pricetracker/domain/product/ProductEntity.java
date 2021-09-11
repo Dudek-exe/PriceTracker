@@ -29,4 +29,6 @@ public class ProductEntity {
     @Column(name = "Border_price")
     private BigDecimal borderPrice;
 
+    //TODO ADD SHOP FIELD FROM WHICH PRICE IS TAKEN
+
 }

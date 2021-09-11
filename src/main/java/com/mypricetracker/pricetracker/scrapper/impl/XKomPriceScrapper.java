@@ -1,24 +1,24 @@
-package com.mypricetracker.pricetracker.scrapper;
+package com.mypricetracker.pricetracker.scrapper.impl;
 
 import com.mypricetracker.pricetracker.domain.product.ProductEntity;
-import com.mypricetracker.pricetracker.exception.ScrappingFieldException;
+import com.mypricetracker.pricetracker.scrapper.Scrapper;
+import com.mypricetracker.pricetracker.scrapper.ScrapperTypeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Slf4j
 @Component
-public class XKomPriceScrapper implements Scrapper{
+public class XKomPriceScrapper extends Scrapper {
 
-    private final ScrapperTypeEnum scrapperTypeEnum = ScrapperTypeEnum.XKOM;
+    private static final ScrapperTypeEnum scrapperTypeEnum = ScrapperTypeEnum.XKOM;
 
+    @Override
     public ScrapperTypeEnum getScrapperTypeEnum() {
         return scrapperTypeEnum;
     }
@@ -48,30 +48,6 @@ public class XKomPriceScrapper implements Scrapper{
             return null;
         }
 
-    }
-
-    private String scrapStringField(Document document, String field) {
-        Element tempElement = document.select(field).first();
-        if (tempElement != null) {
-            return tempElement.select(field).text();
-        } else {
-            throw new ScrappingFieldException("Could not scrap field: " + field);
-        }
-    }
-
-    private BigDecimal scrapPriceField(Document document, String field) {
-        Element tempElement = document.select(field).first();
-        if (tempElement != null) {
-            String price = tempElement.select(field).text();
-            price = convertOriginalPrice(price);
-            return new BigDecimal(price);
-        } else {
-            throw new ScrappingFieldException("Could not scrap field: " + field);
-        }
-    }
-
-    private String convertOriginalPrice(String price) {
-        return price.replace("zł", "").replace(",", ".").replace(" ", "");
     }
 
 }

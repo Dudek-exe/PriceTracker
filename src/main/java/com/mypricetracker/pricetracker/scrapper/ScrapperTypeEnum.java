@@ -6,7 +6,8 @@ import lombok.Getter;
 @Getter
 public enum ScrapperTypeEnum {
 
-    XKOM("XKOM");
+    XKOM("XKOM"),
+    MEDIA_MARKT("MEDIAMARKT");
 
     String scrapperType;
 

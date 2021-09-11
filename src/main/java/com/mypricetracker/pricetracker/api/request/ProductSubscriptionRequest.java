@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 @Getter
 @NoArgsConstructor
-public class NewProductRequest {
+public class ProductSubscriptionRequest {
 
     private String url;
 

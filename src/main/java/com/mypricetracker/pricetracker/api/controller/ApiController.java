@@ -1,6 +1,6 @@
-package com.mypricetracker.pricetracker.api.controller.xkom;
+package com.mypricetracker.pricetracker.api.controller;
 
-import com.mypricetracker.pricetracker.api.request.NewProductRequest;
+import com.mypricetracker.pricetracker.api.request.ProductSubscriptionRequest;
 import com.mypricetracker.pricetracker.api.response.ProductResponse;
 import com.mypricetracker.pricetracker.api.response.SingleProductData;
 import com.mypricetracker.pricetracker.api.utils.ScrapperChooser;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "scrap")
-public class XKomScrapperController {
+public class ApiController {
 
     private final ScrapperChooser scrapperChooser;
     private final ScrappingService scrappingService;
@@ -30,15 +30,15 @@ public class XKomScrapperController {
     }
 
     @PostMapping
-    public ResponseEntity<SingleProductData> scrapDataFromUrl(@RequestBody NewProductRequest newProductRequest) {
-        log.info("Received request for scrappign data from url: " + newProductRequest.getUrl());
-        Scrapper executableScrapper = scrapperChooser.extractScrapperFromUrl(newProductRequest.getUrl());
+    public ResponseEntity<SingleProductData> scrapDataFromUrl(@RequestBody ProductSubscriptionRequest productSubscriptionRequest) {
+        log.info("Received request for scrappign data from url: " + productSubscriptionRequest.getUrl());
+        Scrapper executableScrapper = scrapperChooser.extractScrapperFromUrl(productSubscriptionRequest.getUrl());
         ProductEntity entityToBeSaved;
 
-        if (newProductRequest.getBorderPrice() == null) {
-            entityToBeSaved = scrappingService.scrapDataFromUrlWithoutBorderPrice(executableScrapper, newProductRequest.getUrl());
+        if (productSubscriptionRequest.getBorderPrice() == null) {
+            entityToBeSaved = scrappingService.scrapDataFromUrlWithoutBorderPrice(executableScrapper, productSubscriptionRequest.getUrl());
         } else {
-            entityToBeSaved = scrappingService.scrapDataFromUrlWithBorderPrice(executableScrapper, newProductRequest.getUrl(), newProductRequest.getBorderPrice());
+            entityToBeSaved = scrappingService.scrapDataFromUrlWithBorderPrice(executableScrapper, productSubscriptionRequest.getUrl(), productSubscriptionRequest.getBorderPrice());
         }
 
         return ResponseEntity.status(HttpStatus.CREATED).body(fromProductEntityToSingleProductData.toSingleProductDataFromProductEntity(entityToBeSaved));
