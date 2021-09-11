@@ -1,7 +1,7 @@
-package com.mypricetracker.pricetracker.domain.product;
+package com.mypricetracker.pricetracker.scrapper;
 
 import com.mypricetracker.pricetracker.api.response.SingleProductData;
-import com.mypricetracker.pricetracker.scrapper.Scrapper;
+import com.mypricetracker.pricetracker.domain.product.ProductEntity;
 
 import java.math.BigDecimal;
 import java.util.List;

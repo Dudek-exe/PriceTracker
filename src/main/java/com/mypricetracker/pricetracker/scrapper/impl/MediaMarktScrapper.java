@@ -27,20 +27,16 @@ public class MediaMarktScrapper extends Scrapper {
     @Override
     public ProductEntity scrapFromUrl(String url) {
         try {
+            //Application is able to scrap from MediaMarkt site only when SSL is ignored
             Document document = SSLHelper.getConnection(url).userAgent(HttpHeaders.USER_AGENT).get();
-            ProductEntity product = new ProductEntity();
 
             String name = scrapStringField(document, "h1.b-ofr_headDataTitle");
 
             BigDecimal price = scrapPriceField(document, "div.b-contentSideBox div.m-priceBox_price");
             OffsetDateTime priceTime = OffsetDateTime.now();
 
-            product.setProductName(name);
-            product.setProductPrice(price);
-            product.setPriceDate(priceTime);
-
             log.info("Successfully received data of product: Title: " + name + " price: " + price + " at: " + priceTime);
-            return product;
+            return createProduct(name, price, priceTime, this.getScrapperTypeEnum());
 
         } catch (IOException e) {
             log.info("Unable to connect to requested URL: " + url);

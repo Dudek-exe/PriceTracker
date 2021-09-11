@@ -5,7 +5,7 @@ import com.mypricetracker.pricetracker.api.response.ProductResponse;
 import com.mypricetracker.pricetracker.api.response.SingleProductData;
 import com.mypricetracker.pricetracker.api.utils.ScrapperChooser;
 import com.mypricetracker.pricetracker.domain.product.ProductEntity;
-import com.mypricetracker.pricetracker.domain.product.ScrappingService;
+import com.mypricetracker.pricetracker.scrapper.ScrappingService;
 import com.mypricetracker.pricetracker.mapper.FromProductEntityToSingleProductData;
 import com.mypricetracker.pricetracker.scrapper.Scrapper;
 import lombok.RequiredArgsConstructor;

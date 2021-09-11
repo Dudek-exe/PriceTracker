@@ -1,8 +1,9 @@
-package com.mypricetracker.pricetracker.domain.product.impl;
+package com.mypricetracker.pricetracker.scrapper.impl;
 
 import com.mypricetracker.pricetracker.api.response.SingleProductData;
 import com.mypricetracker.pricetracker.domain.product.ProductEntity;
-import com.mypricetracker.pricetracker.domain.product.ScrappingService;
+import com.mypricetracker.pricetracker.scrapper.ScrappingService;
+import com.mypricetracker.pricetracker.domain.product.impl.ProductRepository;
 import com.mypricetracker.pricetracker.mapper.FromProductEntityToSingleProductData;
 import com.mypricetracker.pricetracker.scrapper.Scrapper;
 import lombok.extern.slf4j.Slf4j;

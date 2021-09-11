@@ -6,6 +6,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 
 public abstract class Scrapper {
 
@@ -39,6 +40,17 @@ public abstract class Scrapper {
 
     protected String convertOriginalPrice(String price) {
         return price.replaceAll("\\D+","");
+    }
+
+    protected ProductEntity createProduct(String name, BigDecimal price, OffsetDateTime priceTime, ScrapperTypeEnum scrapperTypeEnum){
+        ProductEntity productEntity = new ProductEntity();
+
+        productEntity.setProductName(name);
+        productEntity.setProductPrice(price);
+        productEntity.setPriceDate(priceTime);
+        productEntity.setScrapperTypeEnum(this.getScrapperTypeEnum());
+
+        return productEntity;
     }
 
 }

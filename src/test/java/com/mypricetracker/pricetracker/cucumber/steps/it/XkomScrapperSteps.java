@@ -56,7 +56,7 @@ public class XkomScrapperSteps extends AbstractSteps {
     }
 
     @When("User prepares and executes GET request for {string}")
-    public void userPreparesAndExecutesGETRequestAsBelow(String productName) throws JSONException {
+    public void userPreparesAndExecutesGETRequestAsBelow(String productName){
         final String executionUrl = baseUrl() + SCRAP_ENDPOINT;
 
         final Response response = given()
@@ -69,22 +69,6 @@ public class XkomScrapperSteps extends AbstractSteps {
 
         testContextHolder().setResponse(response);
 
-  /*  given()
-  .contentType("application/json")
-  .param("productName", TEST_PRODUCT_NAME)
-  .when()
-  .get("/scrap")
-  .then()
-  .assertThat()
-  .body("responseProductList", notNullValue())
-  .body("responseProductList[0].productName", equalTo("Apple iPhone 12 128GB Purple 5G"))
-  .body("responseProductList[0].priceDate", equalTo("2021-07-24T12:44:45.484797+02:00"))
-  .body("responseProductList[0].borderPrice", equalTo(null))
-  .and()
-  .body("responseProductList[1].productName", equalTo("Apple iPhone 12 128GB Purple 5G"))
-  .body("responseProductList[1].priceDate", equalTo("2021-07-24T12:45:05.36375+02:00"))
-  .body("responseProductList[1].borderPrice", equalTo(null));
-  }*/
     }
 
     @And("Product name is {string}")
@@ -103,6 +87,4 @@ public class XkomScrapperSteps extends AbstractSteps {
                 .body("responseProductList[1].productName", equalTo(productName));
     }
 }
-/*                .body("responseProductList[0].priceDate", equalTo("2021-07-24T12:44:45.484797+02:00"))
-                .body("responseProductList[0].borderPrice", equalTo(null))*/
 

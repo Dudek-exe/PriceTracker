@@ -1,7 +1,9 @@
 package com.mypricetracker.pricetracker.domain.product;
 
+import com.mypricetracker.pricetracker.scrapper.ScrapperTypeEnum;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -26,8 +28,13 @@ public class ProductEntity {
     private OffsetDateTime priceDate;
 
     //price set by user when is interested in buying
+    @Nullable
     @Column(name = "Border_price")
     private BigDecimal borderPrice;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "Shop_type")
+    private ScrapperTypeEnum scrapperTypeEnum;
 
     //TODO ADD SHOP FIELD FROM WHICH PRICE IS TAKEN
 

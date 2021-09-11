@@ -27,7 +27,6 @@ public class XKomPriceScrapper extends Scrapper {
     public ProductEntity scrapFromUrl(String url) {
         try {
             Document document = Jsoup.connect(url).get();
-            ProductEntity product = new ProductEntity();
 
             //Was "h1.sc-1bker4h-4.driGYx" but changed to "h1.sc-1bker4h-4"
             String name = scrapStringField(document, "h1.sc-1bker4h-4");
@@ -36,12 +35,8 @@ public class XKomPriceScrapper extends Scrapper {
             BigDecimal price = scrapPriceField(document, "div.u7xnnm-4");
             OffsetDateTime priceTime = OffsetDateTime.now();
 
-            product.setProductName(name);
-            product.setProductPrice(price);
-            product.setPriceDate(priceTime);
-
             log.info("Successfully received data of product: Title: " + name + " price: " + price + " at: " + priceTime);
-            return product;
+            return createProduct(name, price, priceTime, this.getScrapperTypeEnum());
 
         } catch (IOException e) {
             log.info("Unable to connect to requested URL: " + url);
@@ -49,5 +44,6 @@ public class XKomPriceScrapper extends Scrapper {
         }
 
     }
+
 
 }
