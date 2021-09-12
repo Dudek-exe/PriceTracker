@@ -86,5 +86,15 @@ public class XkomScrapperSteps extends AbstractSteps {
                 .and()
                 .body("responseProductList[1].productName", equalTo(productName));
     }
+
+    @And("ShopType is {word}")
+    public void shoptypeNameIsShopType(String shopType) {
+        final Response response = testContextHolder().getResponse();
+        response.then().assertThat().body("responseProductList", notNullValue())
+                .body("responseProductList[0].shopType", equalTo(shopType))
+                .and()
+                .body("responseProductList[1].shopType", equalTo(shopType));
+
+    }
 }
 

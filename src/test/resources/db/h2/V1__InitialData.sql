@@ -5,28 +5,32 @@ CREATE TABLE scrapper_flyway_schema.product_entity
     border_price numeric(19, 2),
     price_time   timestamp with time zone                            NOT NULL,
     name         character varying(200)                              NOT NULL,
-    price        numeric(19, 2)                                      NOT NULL
+    price        numeric(19, 2)                                      NOT NULL,
+    shop_type    character varying(50)                               NOT NULL
 );
 
-INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time, name, price)
-VALUES (1, NULL, '2021-07-24 12:44:45.484797+02', 'Apple iPhone 12 128GB Purple 5G', 4449.00);
-INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time, name, price)
-VALUES (2, NULL, '2021-07-24 12:45:05.36375+02', 'Apple iPhone 12 128GB Purple 5G', 4449.00);
-INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time, name, price)
-VALUES (3, NULL, '2021-07-24 12:45:08.322571+02', 'Apple iPhone 12 128GB Purple 5G', 4449.00);
-INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time, name, price)
-VALUES (4, NULL, '2021-07-24 12:45:11.290321+02', 'Apple iPhone 12 128GB Purple 5G', 4449.00);
-INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time, name, price)
-VALUES (5, NULL, '2021-07-24 12:45:16.811164+02', 'Apple iPhone 12 128GB Purple 5G', 4449.00);
-INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time, name, price)
-VALUES (6, NULL, '2021-07-24 12:45:53.440707+02', 'Samsung Galaxy S20 FE Fan Edition Snapdragon White', 2299.00);
-INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time, name, price)
-VALUES (7, NULL, '2021-07-24 12:45:56.010288+02', 'Samsung Galaxy S20 FE Fan Edition Snapdragon White', 2299.00);
-INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time, name, price)
-VALUES (8, NULL, '2021-07-24 12:47:51.67132+02', 'Nintendo Switch Joy-Con - Czerwony / Niebieski', 1489.00);
-INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time, name, price)
-VALUES (9, NULL, '2021-07-24 12:47:56.431786+02', 'Nintendo Switch Joy-Con - Czerwony / Niebieski', 1489.00);
-INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time, name, price)
-VALUES (10, NULL, '2021-07-24 12:48:10.651395+02', 'Nintendo Switch Joy-Con - Czerwony / Niebieski', 1489.00);
-INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time, name, price)
-VALUES (11, NULL, '2021-07-24 12:48:12.450254+02', 'Nintendo Switch Joy-Con - Czerwony / Niebieski', 1489.00);
+INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time, name, price, shop_type)
+VALUES (1, NULL, '2021-07-24 12:44:45.484797+02', 'Apple iPhone 12 128GB Purple 5G', 4449.00, 'XKOM');
+INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time, name, price, shop_type)
+VALUES (2, NULL, '2021-07-24 12:45:05.36375+02', 'Apple iPhone 12 128GB Purple 5G', 4449.00, 'XKOM');
+INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time, name, price, shop_type)
+VALUES (3, NULL, '2021-07-24 12:45:08.322571+02', 'Apple iPhone 12 128GB Purple 5G', 4449.00, 'XKOM');
+INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time, name, price, shop_type)
+VALUES (4, NULL, '2021-07-24 12:45:11.290321+02', 'Apple iPhone 12 128GB Purple 5G', 4449.00, 'XKOM');
+INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time, name, price, shop_type)
+VALUES (5, NULL, '2021-07-24 12:45:16.811164+02', 'Apple iPhone 12 128GB Purple 5G', 4449.00, 'XKOM');
+INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time, name, price, shop_type)
+VALUES (6, NULL, '2021-07-24 12:45:53.440707+02', 'Samsung Galaxy S20 FE Fan Edition Snapdragon White', 2299.00,
+        'XKOM');
+INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time, name, price, shop_type)
+VALUES (7, NULL, '2021-07-24 12:45:56.010288+02', 'Samsung Galaxy S20 FE Fan Edition Snapdragon White', 2299.00,
+        'XKOM');
+INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time, name, price, shop_type)
+VALUES (8, NULL, '2021-07-24 12:47:51.67132+02', 'Nintendo Switch Joy-Con - Czerwony / Niebieski', 1489.00, 'XKOM');
+INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time, name, price, shop_type)
+VALUES (9, NULL, '2021-07-24 12:47:56.431786+02', 'Nintendo Switch Joy-Con - Czerwony / Niebieski', 1489.00, 'XKOM');
+INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time, name, price, shop_type)
+VALUES (10, NULL, '2021-07-24 12:48:10.651395+02', 'Nintendo Switch Joy-Con - Czerwony / Niebieski', 1489.00, 'XKOM');
+INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time, name, price, shop_type)
+VALUES (11, NULL, '2021-07-24 12:48:12.450254+02', 'Nintendo Switch Joy-Con - Czerwony / Niebieski', 1489.00, 'XKOM');
+
