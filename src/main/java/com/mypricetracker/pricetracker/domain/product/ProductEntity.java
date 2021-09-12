@@ -34,7 +34,7 @@ public class ProductEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "Shop_type")
-    private ScrapperTypeEnum scrapperTypeEnum;
+    private ScrapperTypeEnum shopType;
 
     //TODO ADD SHOP FIELD FROM WHICH PRICE IS TAKEN
 

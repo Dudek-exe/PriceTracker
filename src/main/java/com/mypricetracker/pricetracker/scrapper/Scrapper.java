@@ -48,7 +48,7 @@ public abstract class Scrapper {
         productEntity.setProductName(name);
         productEntity.setProductPrice(price);
         productEntity.setPriceDate(priceTime);
-        productEntity.setScrapperTypeEnum(this.getScrapperTypeEnum());
+        productEntity.setShopType(this.getScrapperTypeEnum());
 
         return productEntity;
     }

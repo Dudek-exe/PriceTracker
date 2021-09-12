@@ -19,5 +19,6 @@ public class SingleProductData {
 
     private final BigDecimal borderPrice;
 
+    private final String shopType;
 }
 

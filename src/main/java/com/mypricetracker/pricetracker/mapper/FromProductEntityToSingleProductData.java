@@ -10,12 +10,14 @@ import org.mapstruct.Mapping;
 public abstract class FromProductEntityToSingleProductData {
     //For further implementation of utils methods
     interface Helper {
+
     }
 
     @Mapping(target = "productName", source = "productEntity.productName")
     @Mapping(target = "productPrice", source = "productEntity.productPrice")
     @Mapping(target = "priceDate", source = "productEntity.priceDate")
     @Mapping(target = "borderPrice", source = "productEntity.borderPrice")
+    @Mapping(target = "shopType", source = "productEntity.shopType")
     public abstract SingleProductData toSingleProductDataFromProductEntity(ProductEntity productEntity);
 
 }
