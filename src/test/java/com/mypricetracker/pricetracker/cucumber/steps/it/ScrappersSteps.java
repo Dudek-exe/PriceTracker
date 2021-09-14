@@ -8,10 +8,12 @@ import io.cucumber.java.en.When;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +22,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
 @RequiredArgsConstructor
-public class XkomScrapperSteps extends AbstractSteps {
+public class ScrappersSteps extends AbstractSteps {
 
     private final ProductRepository productRepository;
 
@@ -56,7 +58,7 @@ public class XkomScrapperSteps extends AbstractSteps {
     }
 
     @When("User prepares and executes GET request for {string}")
-    public void userPreparesAndExecutesGETRequestAsBelow(String productName){
+    public void userPreparesAndExecutesGETRequestAsBelow(String productName) {
         final String executionUrl = baseUrl() + SCRAP_ENDPOINT;
 
         final Response response = given()
@@ -71,14 +73,30 @@ public class XkomScrapperSteps extends AbstractSteps {
 
     }
 
-    @And("Product name is {string}")
-    public void productNameIsProductName(String productName) {
+    @SneakyThrows
+    @And("Field {word} name is {string}")
+    public void productNameIsProductName(String fieldName, String fieldValue) {
         final Response response = testContextHolder().getResponse();
+        SingleProductData singleProductData = response.getBody().as(SingleProductData.class);
 
-        Assertions.assertEquals(productName, response.getBody().as(SingleProductData.class).getProductName());
+        Field reflectedField = singleProductData.getClass().getDeclaredField(fieldName);
+        reflectedField.setAccessible(true);
+        Assertions.assertEquals(fieldValue, reflectedField.get(singleProductData));
     }
 
-    @And("Every record or the response has the same {string}")
+    @SneakyThrows
+    @And("Field {word} is {word}")
+    public void wordFieldAssertion(String fieldName, String fieldValue) {
+        final Response response = testContextHolder().getResponse();
+        SingleProductData singleProductData = response.getBody().as(SingleProductData.class);
+
+        Field reflectedField = singleProductData.getClass().getDeclaredField(fieldName);
+        reflectedField.setAccessible(true);
+        Assertions.assertEquals(fieldValue, reflectedField.get(singleProductData));
+    }
+
+    //TODO you just check first two
+    @And("Every record of the response has the same productName: {string}")
     public void everyRecordOrTheResponseHasTheSameProductName(String productName) {
         final Response response = testContextHolder().getResponse();
         response.then().assertThat().body("responseProductList", notNullValue())
@@ -87,14 +105,15 @@ public class XkomScrapperSteps extends AbstractSteps {
                 .body("responseProductList[1].productName", equalTo(productName));
     }
 
-    @And("ShopType is {word}")
-    public void shoptypeNameIsShopType(String shopType) {
+    @And("Every record of the response has the {word}")
+    public void everyRecordOrTheResponseHasTheSameShopType(String shopType) {
         final Response response = testContextHolder().getResponse();
         response.then().assertThat().body("responseProductList", notNullValue())
                 .body("responseProductList[0].shopType", equalTo(shopType))
                 .and()
                 .body("responseProductList[1].shopType", equalTo(shopType));
-
     }
+
+
 }
 

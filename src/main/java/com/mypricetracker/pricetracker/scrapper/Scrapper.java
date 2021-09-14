@@ -39,7 +39,8 @@ public abstract class Scrapper {
     }
 
     protected String convertOriginalPrice(String price) {
-        return price.replaceAll("\\D+","");
+        price = price.replaceAll("[^\\d,.]", "").replace(",",".");
+        return price.replaceAll("[^\\d,.]", "");
     }
 
     protected ProductEntity createProduct(String name, BigDecimal price, OffsetDateTime priceTime, ScrapperTypeEnum scrapperTypeEnum){
@@ -48,7 +49,7 @@ public abstract class Scrapper {
         productEntity.setProductName(name);
         productEntity.setProductPrice(price);
         productEntity.setPriceDate(priceTime);
-        productEntity.setShopType(this.getScrapperTypeEnum());
+        productEntity.setShopType(scrapperTypeEnum);
 
         return productEntity;
     }

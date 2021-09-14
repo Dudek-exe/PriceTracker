@@ -25,7 +25,7 @@ public class ApiController {
     private final FromProductEntityToSingleProductData fromProductEntityToSingleProductData;
 
     @GetMapping
-    public ProductResponse getAllPricesOfProduct(@RequestParam String productName) {
+    public ProductResponse getAllProductsByName(@RequestParam String productName) {
         return new ProductResponse(scrappingService.getAllPricesForProduct(productName));
     }
 

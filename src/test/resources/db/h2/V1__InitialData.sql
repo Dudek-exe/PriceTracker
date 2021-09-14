@@ -33,4 +33,9 @@ INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time,
 VALUES (10, NULL, '2021-07-24 12:48:10.651395+02', 'Nintendo Switch Joy-Con - Czerwony / Niebieski', 1489.00, 'XKOM');
 INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time, name, price, shop_type)
 VALUES (11, NULL, '2021-07-24 12:48:12.450254+02', 'Nintendo Switch Joy-Con - Czerwony / Niebieski', 1489.00, 'XKOM');
+INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time, name, price, shop_type)
+VALUES (12, NULL, '2021-07-24 12:48:12.450254+02', 'Smartfon APPLE iPhone 12 Pro 128GB Grafitowy MGMK3PM/A', 4899.00, 'MEDIA_MARKT');
+INSERT INTO scrapper_flyway_schema.product_entity (id, border_price, price_time, name, price, shop_type)
+VALUES (13, NULL, '2021-07-24 12:48:12.450254+02', 'Smartfon APPLE iPhone 12 Pro 128GB Grafitowy MGMK3PM/A', 4899.00, 'MEDIA_MARKT');
+
 
