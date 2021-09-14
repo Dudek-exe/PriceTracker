@@ -1,7 +1,6 @@
 package com.mypricetracker.pricetracker.cucumber.steps.it;
 
 import com.mypricetracker.pricetracker.api.response.SingleProductData;
-import com.mypricetracker.pricetracker.domain.product.impl.ProductRepository;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
@@ -24,14 +23,13 @@ import static org.hamcrest.Matchers.notNullValue;
 @RequiredArgsConstructor
 public class ScrappersSteps extends AbstractSteps {
 
-    private final ProductRepository productRepository;
-
     private static final String SCRAP_ENDPOINT = "/scrap";
 
     private static String translateNullSentinel(String value) {
         return (value.trim().equals("null")) ? null : value.trim();
     }
 
+    //POST STEPS
     @When("User prepares and executes POST request as below:")
     public void userPreparesAndExecutesPOSTRequestAsBelow(DataTable dataTable) throws JSONException {
         final String executionUrl = baseUrl() + SCRAP_ENDPOINT;
@@ -57,22 +55,6 @@ public class ScrappersSteps extends AbstractSteps {
 
     }
 
-    @When("User prepares and executes GET request for {string}")
-    public void userPreparesAndExecutesGETRequestAsBelow(String productName) {
-        final String executionUrl = baseUrl() + SCRAP_ENDPOINT;
-
-        final Response response = given()
-                .contentType(ContentType.JSON)
-                .param("productName", productName)
-                .log()
-                .all()
-                .when()
-                .get(executionUrl);
-
-        testContextHolder().setResponse(response);
-
-    }
-
     @SneakyThrows
     @And("Field {word} name is {string}")
     public void productNameIsProductName(String fieldName, String fieldValue) {
@@ -93,6 +75,23 @@ public class ScrappersSteps extends AbstractSteps {
         Field reflectedField = singleProductData.getClass().getDeclaredField(fieldName);
         reflectedField.setAccessible(true);
         Assertions.assertEquals(fieldValue, reflectedField.get(singleProductData));
+    }
+
+    //GET STEPS
+    @When("User prepares and executes GET request for {string}")
+    public void userPreparesAndExecutesGETRequestAsBelow(String productName) {
+        final String executionUrl = baseUrl() + SCRAP_ENDPOINT;
+
+        final Response response = given()
+                .contentType(ContentType.JSON)
+                .param("productName", productName)
+                .log()
+                .all()
+                .when()
+                .get(executionUrl);
+
+        testContextHolder().setResponse(response);
+
     }
 
     //TODO you just check first two

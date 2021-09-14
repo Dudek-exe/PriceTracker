@@ -26,12 +26,13 @@ public class ApiController {
 
     @GetMapping
     public ProductResponse getAllProductsByName(@RequestParam String productName) {
+        log.info("Received GET request for product: " + productName);
         return new ProductResponse(scrappingService.getAllPricesForProduct(productName));
     }
 
     @PostMapping
     public ResponseEntity<SingleProductData> scrapDataFromUrl(@RequestBody ProductSubscriptionRequest productSubscriptionRequest) {
-        log.info("Received request for scrappign data from url: " + productSubscriptionRequest.getUrl());
+        log.info("Received POST request for scrapping data from url: " + productSubscriptionRequest.getUrl());
         Scrapper executableScrapper = scrapperChooser.extractScrapperFromUrl(productSubscriptionRequest.getUrl());
         ProductEntity entityToBeSaved;
 
