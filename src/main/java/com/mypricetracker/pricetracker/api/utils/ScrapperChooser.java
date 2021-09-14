@@ -23,13 +23,16 @@ public class ScrapperChooser {
         return scrapperContainer.getScrapperMap().get(ScrapperTypeEnum.from(chooseScrapperFromUrl(scrapperTypeFromUrl)));
     }
 
-    //TODO add more cases
+    //TODO add more cases AND refactor this to search container using regex???
     private String chooseScrapperFromUrl(String scrapperTypeFromUrl) {
         if (scrapperTypeFromUrl.contains(ScrapperTypeEnum.XKOM.getScrapperType()))
             return ScrapperTypeEnum.XKOM.getScrapperType();
 
         if (scrapperTypeFromUrl.contains(ScrapperTypeEnum.MEDIA_MARKT.getScrapperType()))
             return ScrapperTypeEnum.MEDIA_MARKT.getScrapperType();
+
+        if (scrapperTypeFromUrl.contains(ScrapperTypeEnum.JULA.getScrapperType()))
+            return ScrapperTypeEnum.JULA.getScrapperType();
 
         throw new NoSuchScrapperEnumTypeException("Could not create Scrapper Type of: " + scrapperTypeFromUrl);
     }

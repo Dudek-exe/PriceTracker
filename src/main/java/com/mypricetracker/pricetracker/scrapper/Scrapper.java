@@ -30,7 +30,7 @@ public abstract class Scrapper {
     protected BigDecimal scrapPriceField(Document document, String field) {
         Element tempElement = document.select(field).first();
         if (tempElement != null) {
-            String price = tempElement.text();
+            String price = tempElement.ownText();
             price = convertOriginalPrice(price);
             return new BigDecimal(price);
         } else {
@@ -39,8 +39,10 @@ public abstract class Scrapper {
     }
 
     protected String convertOriginalPrice(String price) {
-        price = price.replaceAll("[^\\d,.]", "").replace(",",".");
-        return price.replaceAll("[^\\d,.]", "");
+        price = price.replaceAll("[^\\d,.]", "");
+        price = price.replace(",",".");
+        price = price.replace(" ", "");
+        return price;
     }
 
     protected ProductEntity createProduct(String name, BigDecimal price, OffsetDateTime priceTime, ScrapperTypeEnum scrapperTypeEnum){

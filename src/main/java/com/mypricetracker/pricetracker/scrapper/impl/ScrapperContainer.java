@@ -16,14 +16,17 @@ public class ScrapperContainer {
 
     XKomPriceScrapper xKomPriceScrapper;
     MediaMarktScrapper mediaMarktScrapper;
+    JulaScrapper julaScrapper;
 
 
-    public ScrapperContainer(XKomPriceScrapper xKomPriceScrapper, MediaMarktScrapper mediaMarktScrapper) {
+    public ScrapperContainer(XKomPriceScrapper xKomPriceScrapper, MediaMarktScrapper mediaMarktScrapper, JulaScrapper julaScrapper) {
         this.xKomPriceScrapper = xKomPriceScrapper;
         this.mediaMarktScrapper = mediaMarktScrapper;
+        this.julaScrapper = julaScrapper;
 
         scrapperMap.put(xKomPriceScrapper.getScrapperTypeEnum(), xKomPriceScrapper);
         scrapperMap.put(mediaMarktScrapper.getScrapperTypeEnum(), mediaMarktScrapper);
+        scrapperMap.put(julaScrapper.getScrapperTypeEnum(), julaScrapper);
     }
 
 }
