@@ -17,7 +17,7 @@ import java.time.OffsetDateTime;
 
 @Slf4j
 @Component
-public class JulaScrapper extends Scrapper {
+class JulaScrapper extends Scrapper {
 
     private static final ScrapperTypeEnum scrapperTypeEnum = ScrapperTypeEnum.JULA;
 

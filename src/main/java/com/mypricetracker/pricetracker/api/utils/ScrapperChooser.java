@@ -34,6 +34,9 @@ public class ScrapperChooser {
         if (scrapperTypeFromUrl.contains(ScrapperTypeEnum.JULA.getScrapperType()))
             return ScrapperTypeEnum.JULA.getScrapperType();
 
+        if (scrapperTypeFromUrl.contains(ScrapperTypeEnum.BIKESTER.getScrapperType()))
+            return ScrapperTypeEnum.BIKESTER.getScrapperType();
+
         throw new NoSuchScrapperEnumTypeException("Could not create Scrapper Type of: " + scrapperTypeFromUrl);
     }
 

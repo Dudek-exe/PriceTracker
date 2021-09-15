@@ -8,7 +8,8 @@ public enum ScrapperTypeEnum {
 
     XKOM("XKOM"),
     MEDIA_MARKT("MEDIAMARKT"),
-    JULA("JULA");
+    JULA("JULA"),
+    BIKESTER("BIKESTER");
 
     String scrapperType;
 

@@ -14,7 +14,7 @@ import java.time.OffsetDateTime;
 
 @Slf4j
 @Component
-public class XKomPriceScrapper extends Scrapper {
+class XKomPriceScrapper extends Scrapper {
 
     private static final ScrapperTypeEnum scrapperTypeEnum = ScrapperTypeEnum.XKOM;
 
