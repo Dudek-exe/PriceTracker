@@ -29,7 +29,6 @@ class JulaScrapper extends Scrapper {
     @Override
     public ProductEntity scrapFromUrl(String url) {
         try {
-            //Application is able to scrap from MediaMarkt site only when SSL is ignored
             Document document = SSLHelper.getConnection(url).userAgent(HttpHeaders.USER_AGENT).get();
 
             String name = scrapStringField(document, "div.col-xs-8");
@@ -54,6 +53,7 @@ class JulaScrapper extends Scrapper {
 
     }
 
+    //Overriding necessary to allow null value for decimal part of the price
     @Override
     protected BigDecimal scrapPriceField(Document document, String field) {
         Element tempElement = document.select(field).first();
@@ -65,5 +65,6 @@ class JulaScrapper extends Scrapper {
             return null;
         }
     }
+
 
 }

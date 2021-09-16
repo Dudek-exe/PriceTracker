@@ -55,6 +55,7 @@ class BikeSterScrapper extends Scrapper {
 
     }
 
+    //Overriding necessary to allow null value for promoPrice
     @Override
     protected BigDecimal scrapPriceField(Document document, String field) {
         Element tempElement = document.select(field).first();
@@ -69,8 +70,7 @@ class BikeSterScrapper extends Scrapper {
 
     @Override
     protected String convertOriginalPrice(String price) {
-        price = price.replaceAll("[^\\d,.]", "");
-        price = price.replace(".", "");
+        price = price.replaceAll("[^\\d,]", "");
         return price;
     }
 
