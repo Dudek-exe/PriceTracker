@@ -9,7 +9,6 @@ import java.time.OffsetDateTime;
 @Getter
 public class SingleProductData {
 
-
     private final String productName;
 
     private final String productPrice;

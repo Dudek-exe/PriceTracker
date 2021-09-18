@@ -11,7 +11,7 @@ public enum ScrapperTypeEnum {
     JULA("JULA"),
     BIKESTER("BIKESTER");
 
-    String scrapperType;
+    private final String scrapperType;
 
     ScrapperTypeEnum(String scrapperType) {
         this.scrapperType = scrapperType;

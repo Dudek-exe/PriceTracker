@@ -1,16 +1,16 @@
 package com.mypricetracker.pricetracker.api.request;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.lang.Nullable;
 
 import java.math.BigDecimal;
 
 @Getter
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class ProductSubscriptionRequest {
 
-    private String url;
+    private final String url;
 
     @Nullable
     private BigDecimal borderPrice;
