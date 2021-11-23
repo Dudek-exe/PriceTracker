@@ -30,9 +30,9 @@ class MediaMarktScrapper extends Scrapper {
             //Application is able to scrap from MediaMarkt site only when SSL is ignored
             Document document = SSLHelper.getConnection(url).userAgent(HttpHeaders.USER_AGENT).get();
 
-            String name = scrapStringField(document, "h1.b-ofr_headDataTitle");
+            String name = scrapStringField(document, "h1.title.is-heading");
 
-            BigDecimal price = scrapPriceField(document, "div.b-contentSideBox div.m-priceBox_price");
+            BigDecimal price = scrapPriceField(document, "div.price-box span.whole");
             OffsetDateTime priceTime = OffsetDateTime.now();
 
             log.info("Successfully received data of product: Title: " + name + " price: " + price + " at: " + priceTime);

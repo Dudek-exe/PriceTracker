@@ -34,15 +34,9 @@ class BikeSterScrapper extends Scrapper {
 
             String name = scrapStringField(document, "h1.cyc-typo_display-3.cyc-margin_bottom-1.cyc-no-texttransform");
 
-            BigDecimal promoPrice = scrapPriceField(document, "div.cyc-margin_right-2.cyc-typo_display-3.cyc-color-text_sale");
-            BigDecimal oroginalPrice = scrapPriceField(document, "div.cyc-margin_right-2.cyc-typo_display-3");
+            BigDecimal promoPrice = scrapPriceField(document, "span.price-sales");
             OffsetDateTime priceTime = OffsetDateTime.now();
-
-            if (promoPrice != null) {
                 price = promoPrice;
-            } else {
-                price = oroginalPrice;
-            }
 
             log.info("Successfully received data of product: Title: " + name + " price: " + price + " at: " + priceTime);
             return createProduct(name, price, priceTime, this.getScrapperTypeEnum());
@@ -70,7 +64,7 @@ class BikeSterScrapper extends Scrapper {
 
     @Override
     protected String convertOriginalPrice(String price) {
-        price = price.replaceAll("[^\\d,]", "");
+        price = price.replaceAll("[^\\d,]", "").replace(",",".");
         return price;
     }
 

@@ -32,7 +32,7 @@ class XKomPriceScrapper extends Scrapper {
             String name = scrapStringField(document, "h1.sc-1bker4h-4");
 
             //Was "div.u7xnnm-4.jFbqvs but changed to "div.u7xnnm-4"
-            BigDecimal price = scrapPriceField(document, "div.u7xnnm-4");
+            BigDecimal price = scrapPriceField(document, "div.n4n86h-4.edNVst");
             OffsetDateTime priceTime = OffsetDateTime.now();
 
             log.info("Successfully received data of product: Title: " + name + " price: " + price + " at: " + priceTime);

@@ -36,4 +36,6 @@ public class ProductEntity {
     @Column(name = "Shop_type")
     private ScrapperTypeEnum shopType;
 
+    //TODO ADD SHOP FIELD FROM WHICH PRICE IS TAKEN
+
 }
